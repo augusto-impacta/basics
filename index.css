@@ -62,3 +62,17 @@
   border: 1px solid #504869;
   box-shadow: 1.5px 1.5px 2px #808080;
 }
+
+table th {
+  padding: 5px;
+  border: 1px solid #000;
+  text-align: center;
+  background-color: #6eb7f3;
+}
+
+table td {
+  padding: 5px;
+  border: 1px solid #000;
+  text-align: center;
+}
+

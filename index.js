@@ -32,8 +32,30 @@ Nutricionista.prototype = Object.create(Pessoa.prototype);
 Nutricionista.prototype.constructor = Nutricionista;
 
 function renderizaResultadoIMC(nutricionista) {
-    document.getElementById("imc").innerText =
-        nutricionista.imc().toFixed(2) + " - " + nutricionista.classificaIMC();
+
+    const tbody = document.getElementById("historicoIMC")
+    
+
+        let guardaIMC = [];
+        guardaIMC.push({numero: guardaIMC.length + 1,
+                        altura: nutricionista.altura, 
+                        peso: nutricionista.peso, 
+                        imc: nutricionista.imc().toFixed(2), 
+                        classificacao: nutricionista.classificaIMC()});
+
+        guardaIMC.forEach(gIMC => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${gIMC.numero}</td>
+                        <td>${gIMC.altura}</td>
+                        <td>${gIMC.peso}</td>
+                        <td>${gIMC.imc}</td>
+                        <td>${gIMC.classificacao}</td>`;
+        tbody.appendChild(tr); });
+
+        tbody.lastElementChild.previousElementSibling.querySelectorAll("td").forEach(td => td.style.backgroundColor = "white");
+         tbody.lastElementChild.querySelectorAll("td").forEach(td => td.style.backgroundColor = "yellow");
+
+        document.getElementById("imc").innerText = nutricionista.imc().toFixed(2) + " - " + nutricionista.classificaIMC();
 }
 
 function actionCalcularIMCBuilder() {
