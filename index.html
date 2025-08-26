@@ -25,24 +25,35 @@
             </div>
             <div class="data">
                 <p>Seu IMC &eacute; <span id="imc"></span></p>
+                <div class="tabela">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Classificação</th>
+                                <th>IMC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-range="abaixo">
+                                <td>Abaixo do peso</td>
+                                <td>Menor que 18.5</td>
+                            </tr>
+                            <tr data-range="normal">
+                                <td>Peso normal</td>
+                                <td>18.5 a 24.9</td>
+                            </tr>
+                            <tr data-range="sobrepeso">
+                                <td>Sobrepeso</td>
+                                <td>25.0 a 29.9</td>
+                            </tr>
+                            <tr data-range="obesidade">
+                                <td>Obesidade</td>
+                                <td>Maior ou igual a 30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <fieldset>
-                <legend>Histórico de Classifica&ccedil;&atilde;o</legend>
-                <table width="100%">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Altura</th>
-                            <th>Peso</th>
-                            <th>IMC</th>
-                            <th>Classificação</th>
-                        </tr>
-                    </thead>
-                    <tbody id="historicoIMC">
-                        <!-- Os dados serão inseridos aqui dinamicamente -->                      
-                    </tbody>
-                </table>
-            </fieldset>
         </div>
     </body>
     <script lang="text/javascript" src="index.js"></script>

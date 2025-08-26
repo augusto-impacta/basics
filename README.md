@@ -6,7 +6,7 @@ Gabriel Olimpio
 - Eduardo de Oliveira Barros
 - Gabriel Olimpio Ferreira Francisco
 - Paulo Ricardo Santos Lima
-- Willian Araujo
+- Willian de Araujo Julião
 - Haron Cavalaro Moreira
 - Lucas Nogueira Cotes
 - Felipe Neves de souza 

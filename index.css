@@ -63,16 +63,24 @@
   box-shadow: 1.5px 1.5px 2px #808080;
 }
 
-table th {
-  padding: 5px;
-  border: 1px solid #000;
-  text-align: center;
-  background-color: #6eb7f3;
+.data .tabela table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
 }
 
-table td {
-  padding: 5px;
-  border: 1px solid #000;
-  text-align: center;
+.data .tabela th,
+.data .tabela td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
+.data .tabela th {
+  background-color: #f2f2f2;
+}
+
+.data .tabela .destacado {
+  background-color: #e6f3ff;
+  font-weight: bold;
+}
