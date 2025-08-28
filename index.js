@@ -1,12 +1,3 @@
-function Pessoa(altura, peso) {
-    if (!altura || !peso) {
-        throw new Error("Altura e peso são obrigatórios");
-    }
-
-    this.altura = altura;
-    this.peso = peso;
-}
-
 function formatarValor(input) {
     let numeros = input.value.replace(/\D/g, '');
     if (!numeros || numeros.length === 0) {
@@ -17,79 +8,56 @@ function formatarValor(input) {
     input.value = valorNumerico.toFixed(2);
 }
 
-function Nutricionista(altura, peso) {
-    Pessoa.call(this, altura, peso);
-    this.imc = function () {
-        return this.peso / (this.altura * this.altura);
-    };
-
-    this.classificaIMC = function () {
-        var imc = this.imc();
-        if (imc < 18.5) {
-            return "Abaixo do peso";
-        }
-        if (imc >= 18.5 && imc < 24.9) {
-            return "Peso normal";
-        }
-        if (imc >= 25 && imc < 29.9) {
-            return "Sobrepeso";
-        }
-
-        return "Obesidade";
-    };
-}
-Nutricionista.prototype = Object.create(Pessoa.prototype);
-Nutricionista.prototype.constructor = Nutricionista;
-
-function renderizaResultadoIMC(nutricionista) {
-    var imc = nutricionista.imc();
-    var classificacao = nutricionista.classificaIMC();
-    
+function renderizaResultadoIMC(imc) {
+    console.log(imc)
     document.getElementById("imc").innerText =
-        imc.toFixed(2) + " - " + classificacao;
-    
+        imc?.imc + " - " + imc.imcDescription;
+
     var linhasTabela = document.querySelectorAll(".data .tabela tbody tr");
     for (var i = 0; i < linhasTabela.length; i++) {
         linhasTabela[i].className = "";
     }
-    
+
     var range;
-    if (imc < 18.5) {
+    if (imc.imc < 18.5) {
         range = "abaixo";
-    } else if (imc >= 18.5 && imc < 24.9) {
+    } else if (imc.imc >= 18.5 && imc.imc < 24.9) {
         range = "normal";
-    } else if (imc >= 25 && imc < 29.9) {
+    } else if (imc.imc >= 25 && imc.imc < 29.9) {
         range = "sobrepeso";
     } else {
         range = "obesidade";
     }
-    
+
     var linhaDestaque = document.querySelector('.data .tabela tbody tr[data-range="' + range + '"]');
     if (linhaDestaque) {
         linhaDestaque.className = "destacado";
     }
 }
 
-function actionCalcularIMCBuilder() {
+async function calculateIMC(evt) {
+    evt.preventDefault();
     var alturaEl = document.getElementById("altura");
     var pesoEl = document.getElementById("peso");
 
-    return function actionCalcularIMC(evt) {
-        evt.preventDefault();
-
-        var nutricionista = new Nutricionista(
-            parseFloat(alturaEl.value),
-            parseFloat(pesoEl.value)
-        );
-        console.log(Nutricionista.prototype.constructor);
-        console.log(nutricionista instanceof Pessoa);
-
-        renderizaResultadoIMC(nutricionista);
-    }
+    fetch("http://localhost:3000/imc/calculate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ "height": alturaEl.value, "weight": pesoEl.value })
+    })
+        .then(response => response.json())
+        .then(data => {
+            renderizaResultadoIMC(data)
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+        });
 }
 
 window.onload = function () {
     document
         .getElementById("calcular")
-        .addEventListener("click", actionCalcularIMCBuilder());
+        .addEventListener("click", calculateIMC);
 };
